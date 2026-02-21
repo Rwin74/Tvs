@@ -1,0 +1,103 @@
+{
+  "site_name": "TVS Tekstil",
+  "nav": {
+    "company": "Şirketimiz",
+    "about": "Hakkımızda",
+    "certificates": "Sertifikalarımız",
+    "production": "Üretim Tesisimiz",
+    "products": "Ürünlerimiz",
+    "contact": "İletişim",
+    "cart": "Sepet"
+  },
+  "hero": {
+    "subtitle": "Premium Ev Tekstili",
+    "cta": "Detay"
+  },
+  "home": {
+    "about_title": "TVS TEKSTİL",
+    "about_text": "Yüksek kaliteli ev tekstili ürünleri üreten firmamız, dünya standartlarında üretim kapasitesiyle havlu, bornoz, nevresim, ev giyimi ve daha birçok ürünü sizlere sunmaktadır.",
+    "detail_btn": "Detay",
+    "categories_title": "Ürün Kategorilerimiz"
+  },
+  "products_page": {
+    "title": "ÜRÜNLERİMİZ",
+    "subtitle": "300 çalışanımız ve 10 milyon adet üretim kapasitemiz ile kendi tasarım merkezimiz sayesinde bugün havlu, bornoz, yatak çarşafı, ev kıyafeti, bebek & çocuk ürünlerinin 50'den fazla ülkeye lider ihracatçısıyız.",
+    "all": "Tümü",
+    "add_to_cart": "Sepete Ekle",
+    "detail": "Detay",
+    "no_products": "Bu kategoride ürün bulunamadı."
+  },
+  "product_detail": {
+    "features": "Ürün Özellikleri",
+    "add_to_cart": "Sepete Ekle",
+    "whatsapp_order": "WhatsApp ile Sipariş",
+    "back": "Geri Dön",
+    "related": "Benzer Ürünler"
+  },
+  "about": {
+    "banner_title": "HAKKIMIZDA",
+    "banner_text": "TVS Tekstil olarak yüksek kalite standartlarıyla ev tekstili alanında hizmet vermekteyiz.",
+    "mission_title": "MİSYONUMUZ",
+    "mission_text": "Tarz oluşturan hayatlar sunmak isteyen markalar için, doğal yaşama saygılı, yenilikçi yaklaşımlarla ileri teknolojiyi kullanarak ve yetkin çalışanları ile ayrıcalıklı tekstil ürünleri sunmak.",
+    "vision_title": "VİZYONUMUZ",
+    "vision_text": "Mükemmelliği hayata uyarlayan, saygınlık simgesi dünya markaları oluşturmak.",
+    "values_title": "DEĞERLERİMİZ",
+    "values_text": "Müşterilerimizi sözle değil icraatlarımızla mutlu ederiz. Gelecek nesillerin sürdürebilirliğini sağlamak için doğaya ve farklı kültürlere saygı gösterir, sosyal sorumluluk bilinci ile davranırız."
+  },
+  "contact": {
+    "banner_title": "İLETİŞİM",
+    "banner_text": "Bizimle iletişime geçin",
+    "address_label": "Adres",
+    "phone_label": "Telefon",
+    "email_label": "E-posta",
+    "form_name": "Adınız Soyadınız",
+    "form_email": "E-posta Adresiniz",
+    "form_phone": "Telefon Numaranız",
+    "form_subject": "Konu",
+    "form_message": "Mesajınız",
+    "form_send": "Gönder",
+    "form_success": "Mesajınız başarıyla gönderildi!"
+  },
+  "cart_modal": {
+    "title": "Sepetim",
+    "empty": "Sepetiniz boş",
+    "total": "Toplam",
+    "remove": "Kaldır",
+    "clear": "Sepeti Temizle",
+    "whatsapp_order": "WhatsApp ile Sipariş Ver",
+    "continue": "Alışverişe Devam Et"
+  },
+  "footer": {
+    "company": "Şirketimiz",
+    "products": "Ürünlerimiz",
+    "other": "Diğer",
+    "newsletter_title": "HABER BÜLTENİ",
+    "newsletter_text": "Bizimle ilgili haberleri almak için, bültenimize abone olun.",
+    "newsletter_btn": "Gönder",
+    "newsletter_placeholder": "E-posta adresiniz",
+    "copyright": "© 2026 TVS Tekstil. Tüm Hakları Saklıdır.",
+    "keep_in_touch": "Keep in Touch"
+  },
+  "categories": {
+    "banyo": "Banyo",
+    "yatak-takimi": "Yatak Takımı",
+    "ev-kiyafeti": "Ev Giyimi",
+    "bebek-cocuk": "Bebek & Çocuk",
+    "yasam": "Yaşam",
+    "beach-spa": "Beach & Spa"
+  },
+  "category_desc": {
+    "banyo": "Çeşitli iplik kalitelerinde dokuma tezgahlarında üretilen dokuma kumaşlar, ultra yumuşaklık, yüksek emicilik ve kalite ön plana çıkarılarak, tasarımcılarımızın hayal gücü sayesinde zarif, konforlu ve kullanışlı ürünlere dönüşmektedir. Bornozlar, havlular, bone, paspaslar, kese ve terlikler düşük gramajdan yüksek gramaja kadar üretilebilmektedir.",
+    "yatak-takimi": "Sürtünmeye dayanıklı, anti-bakteriyel, nemi ve teri iyi emen, serinlik hissi yaratan, parlak ve yumuşak dokuya sahip, nakış ve renk alternatifleri ile yatak odalarına zarafet katacak nevresim takımları, çarşaflar, pike ve yastık kılıfları üretmekteyiz.",
+    "ev-kiyafeti": "Ev giyim grubunda konfor ve kalite, hem dokuma hem de örgü kumaşlarla hazırlanan koleksiyonlarla en üst düzeyde sunulmaktadır. Örgü ve dokuma kumaşların birlikte kullanılmasıyla şık modeller oluşturulmuştur.",
+    "bebek-cocuk": "Bebek ve çocuklar için özel olarak tasarlanmış, organik pamuktan üretilmiş, hassas ciltlere uygun tekstil ürünleri. Bornoz setleri, kundaklar, havlular, pijamalar ve önlükler en yüksek güvenlik standartlarında üretilmektedir.",
+    "yasam": "Yaşam alanlarınıza şıklık ve zarafet katan dekoratif ev tekstili ürünleri. Masa örtüleri, runner'lar, peçeteler, kırlent kılıfları ve perdeler doğal kumaşlardan özenle üretilmektedir.",
+    "beach-spa": "Plaj ve spa kullanımı için tasarlanmış, yüksek kaliteli havlular, bornozlar ve aksesuarlar. Geleneksel Türk hamam havlularından modern plaj koleksiyonlarına kadar geniş bir ürün yelpazesi sunulmaktadır."
+  },
+  "whatsapp": {
+    "greeting": "Merhaba, aşağıdaki ürünleri sipariş vermek istiyorum:",
+    "product_line": "{qty}x {name} - {price}",
+    "total_line": "Toplam: {total}",
+    "single_product": "Merhaba, bu ürün hakkında bilgi almak istiyorum: {name}"
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "tekstil-tvs",
+    "version": "1.0.0",
+    "description": "Tekstil TVS Root",
+    "scripts": {
+        "dev": "cd admin-panel && npm run dev",
+        "install": "cd admin-panel && npm install",
+        "build": "cd admin-panel && npm run build",
+        "start": "cd admin-panel && npm run start"
+    }
+}

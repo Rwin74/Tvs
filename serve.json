@@ -1,0 +1,32 @@
+{
+    "cleanUrls": false,
+    "rewrites": [
+        {
+            "source": "/products",
+            "destination": "/products.html"
+        },
+        {
+            "source": "/about",
+            "destination": "/about.html"
+        },
+        {
+            "source": "/contact",
+            "destination": "/contact.html"
+        },
+        {
+            "source": "/product-detail",
+            "destination": "/product-detail.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "**/*",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        }
+    ]
+}

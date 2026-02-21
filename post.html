@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVS Tekstil | Blog Detay</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .post-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .post-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .post-meta {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .post-content h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-text">TVS<span>T E K S T İ L</span></div>
+            </a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Anasayfa</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="post-container" id="post-content">
+        <!-- Content loaded via JS -->
+    </div>
+
+    <script src="js/blog.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+            const container = document.getElementById('post-content');
+
+            if (!slug || typeof getPostBySlug === 'undefined') {
+                container.innerHTML = '<p>Yazı bulunamadı.</p>';
+                return;
+            }
+
+            const post = getPostBySlug(slug);
+
+            if (!post) {
+                container.innerHTML = '<p>Aradığınız yazı bulunamadı.</p><a href="blog.html">Blog\'a Dön</a>';
+                return;
+            }
+
+            document.title = `${post.title} | TVS Tekstil`;
+
+            container.innerHTML = `
+                <a href="blog.html" class="back-link">← Tüm Yazılar</a>
+                <header class="post-header">
+                    <h1 class="post-title">${post.title}</h1>
+                    <div class="post-meta">${post.date} • ${post.author}</div>
+                </header>
+                <img src="${post.image}" alt="${post.title}" class="post-image">
+                <div class="post-content">
+                    ${post.content || '<p>İçerik yok.</p>'}
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>

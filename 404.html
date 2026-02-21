@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Bulunamadı | TVS Tekstil</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧵</text></svg>">
+    <style>
+        .error-page {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .btn-home {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-home:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header" id="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-text">TVS<span>T E K S T İ L</span></div>
+            </a>
+            <div class="lang-switcher">
+                <a href="index.html" class="btn-home" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Ana Sayfa</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="error-page">
+        <div class="container animate-on-scroll">
+            <h1 class="error-code">404</h1>
+            <h2 class="error-message">Aradığınız Sayfa Bulunamadı</h2>
+            <p style="margin-bottom: 2rem; max-width: 500px;">
+                Belki de eski bir linke tıkladınız veya sayfa taşınmış olabilir.
+                Aşağıdaki buton ile ürünlerimize göz atabilirsiniz.
+            </p>
+            <a href="products.html" class="btn-home">Ürünlerimize Göz Atın</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container" style="display:flex; justify-content:center; align-items:center;">
+                <p>&copy; 2026 TVS Tekstil. Tüm Hakları Saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Simple animation trigger if app.js doesn't catch it
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.animate-on-scroll').classList.add('visible');
+        });
+    </script>
+</body>
+
+</html>

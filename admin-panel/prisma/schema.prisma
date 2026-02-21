@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// A. Product Management (PIM)
+model Product {
+  id               String           @id @default(uuid())
+  name             String
+  slug             String           @unique
+  shortDescription String?
+  htmlDescription  String?
+  gsm              Int?
+  fabricType       String? // 'Cotton', 'Bamboo', 'Microfiber', 'Blend'
+  weaveType        String? // 'Ring', 'OpenEnd', 'Jacquard'
+  isActive         Boolean          @default(true)
+  basePrice        Decimal          @default(0)
+  discountPrice    Decimal?
+  categoryId       String?
+  
+  variants         ProductVariant[]
+  seo              SeoSetting?
+  media            MediaLibrary[]   @relation("ProductMedia")
+  
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model ProductVariant {
+  id             String  @id @default(uuid())
+  productId      String
+  product        Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku            String  @unique
+  colorCode      String?
+  size           String?
+  stockQuantity  Int     @default(0)
+  priceOverride  Decimal?
+  wholesalePrice Decimal? // B2B Price
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// B. SEO Management
+model SeoSetting {
+  id              String  @id @default(uuid())
+  
+  // Relations
+  productId       String? @unique
+  product         Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  blogPostId      String? @unique
+  blogPost        BlogPost? @relation(fields: [blogPostId], references: [id], onDelete: Cascade)
+
+  metaTitle       String?
+  metaDescription String?
+  canonicalUrl    String?
+  robotsTag       String? @default("index,follow")
+  schemaMarkup    String? // JSON string
+  ogImageUrl      String?
+}
+
+// C. Media Management
+model MediaLibrary {
+  id          String   @id @default(uuid())
+  fileName    String
+  filePath    String
+  mimeType    String?
+  altText     String
+  sizeKb      Int?
+  dimensions  String?
+  
+  // Relations
+  productId   String?
+  product     Product? @relation("ProductMedia", fields: [productId], references: [id])
+  
+  createdAt   DateTime @default(now())
+}
+
+// D. Blog & Content
+model BlogPost {
+  id          String      @id @default(uuid())
+  title       String
+  slug        String      @unique
+  content     String?     // HTML
+  authorId    String?
+  author      Author?     @relation(fields: [authorId], references: [id])
+  status      String      @default("Draft") // 'Draft', 'Published'
+  publishedAt DateTime?
+  
+  seo         SeoSetting?
+  
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Author {
+  id          String     @id @default(uuid())
+  fullName    String
+  bio         String?
+  linkedinUrl String?
+  avatarUrl   String?
+  
+  posts       BlogPost[]
+}
+
+// E. B2B & Quotes
+model QuoteRequest {
+  id           String   @id @default(uuid())
+  customerName String
+  companyName  String?
+  email        String
+  phone        String?
+  status       String   @default("Pending") // 'Pending', 'OfferSent', 'Completed', 'Rejected'
+  items        String?  // JSON string of requested items
+  notes        String?
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
