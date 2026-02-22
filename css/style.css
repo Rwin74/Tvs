@@ -135,6 +135,59 @@ button {
   line-height: 1.1;
 }
 
+/* Header Contact Additions */
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.header-contact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+.header-contact-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.header-contact-icon svg {
+  width: 10px;
+  height: 10px;
+  stroke: var(--white);
+}
+
+.header-contact-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.header-contact-info a {
+  color: inherit;
+  transition: var(--transition);
+}
+
+.header-contact-info a:hover {
+  color: var(--primary);
+}
+
 /* Navigation */
 .nav {
   display: flex;
@@ -1735,6 +1788,14 @@ textarea.form-control {
     padding: 14px 0;
     font-size: 1rem;
     border-bottom: 1px solid var(--mid-gray);
+  }
+
+  .header-contact {
+    display: none;
+  }
+
+  .header-brand {
+    justify-content: center;
   }
 
   .nav-dropdown-menu {
