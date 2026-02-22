@@ -1,12 +1,35 @@
+"use client"
+
 import Link from "next/link"
 import { CircleUser, Menu, Search } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function Header() {
+    const router = useRouter()
+
+    const handleLogout = async () => {
+        try {
+            await fetch("/admin/api/auth", { method: "DELETE" })
+            router.push("/login")
+            router.refresh()
+        } catch (error) {
+            console.error("Logout failed", error)
+        }
+    }
+
     return (
-        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 z-10 w-full relative">
             <div className="w-full flex-1">
                 <form>
                     <div className="relative">
@@ -19,10 +42,24 @@ export function Header() {
                     </div>
                 </form>
             </div>
-            <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Kullanıcı menüsü</span>
-            </Button>
+
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="secondary" size="icon" className="rounded-full">
+                        <CircleUser className="h-5 w-5" />
+                        <span className="sr-only">Kullanıcı menüsü</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Hesabım</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Ayarlar</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout} className="text-red-500 font-medium cursor-pointer">
+                        Çıkış Yap
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
         </header>
     )
 }
