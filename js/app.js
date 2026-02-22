@@ -9,9 +9,18 @@ const App = {
     async init() {
         // i18n başlat
         await I18n.init();
+        // Fetch products first
+        if (typeof fetchProducts === 'function') {
+            await fetchProducts();
+        }
 
         // Sepeti başlat
         Cart.init();
+
+        // Kategori ürünlerini render et (eğer kategori sayfasındaysa)
+        if (typeof renderCategoryPageProducts === 'function') {
+            renderCategoryPageProducts();
+        }
 
         // Header scroll efekti
         this.initHeaderScroll();
