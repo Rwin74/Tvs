@@ -14,9 +14,6 @@ const App = {
             await fetchProducts();
         }
 
-        // Sepeti başlat
-        Cart.init();
-
         // Kategori ürünlerini render et (eğer kategori sayfasındaysa)
         if (typeof renderCategoryPageProducts === 'function') {
             renderCategoryPageProducts();

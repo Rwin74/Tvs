@@ -94,10 +94,7 @@ const I18n = {
             renderProducts();
         }
 
-        // Sepet render (eğer açıksa)
-        if (typeof Cart !== 'undefined' && Cart.isOpen) {
-            Cart.render();
-        }
+
 
         // Ürün detay sayfasını güncelle
         if (typeof renderProductDetail === 'function') {
