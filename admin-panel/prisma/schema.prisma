@@ -21,6 +21,7 @@ model Product {
   basePrice        Decimal          @default(0)
   discountPrice    Decimal?
   categoryId       String?
+  category         Category?        @relation("ProductCategory", fields: [categoryId], references: [id])
   
   variants         ProductVariant[]
   seo              SeoSetting?
@@ -43,6 +44,19 @@ model ProductVariant {
 
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  iconClass   String?   @default("fas fa-box")
+  isActive    Boolean   @default(true)
+  products    Product[] @relation("ProductCategory")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 // B. SEO Management
@@ -76,7 +90,7 @@ model MediaLibrary {
   
   // Relations
   productId   String?
-  product     Product? @relation("ProductMedia", fields: [productId], references: [id])
+  product     Product? @relation("ProductMedia", fields: [productId], references: [id], onDelete: Cascade)
   
   createdAt   DateTime @default(now())
 }

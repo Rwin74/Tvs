@@ -12,16 +12,15 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
         }
 
-        // Validate file type (Only images)
         if (!file.type.startsWith('image/')) {
-            return NextResponse.json({ error: "Sadece resim dosyaları yüklenebilir" }, { status: 400 });
+            return NextResponse.json({ error: "Sadece resim dosyaları yüklenebilir (jpeg, png, webp vs.)" }, { status: 400 });
         }
 
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        // Create uploads directory if not exists
-        const uploadDir = join(process.cwd(), "public", "uploads");
+        // Kök dizindeki img/uploads klasörüne kaydet
+        const uploadDir = join(process.cwd(), "..", "img", "uploads");
         try {
             await mkdir(uploadDir, { recursive: true });
         } catch (e) {
@@ -35,10 +34,11 @@ export async function POST(req: NextRequest) {
         const path = join(uploadDir, uniqueFilename);
 
         await writeFile(path, buffer);
-        console.log(`Open ${path} to see the uploaded file`);
+        console.log(`Saved file to ${path}`);
 
+        // Veritabanına ve önyüze dönerken kullanılacak URL
         return NextResponse.json({
-            url: `/uploads/${uniqueFilename}`,
+            url: `/img/uploads/${uniqueFilename}`,
             filename: uniqueFilename,
             size: file.size,
             type: file.type

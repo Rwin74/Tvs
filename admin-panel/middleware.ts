@@ -14,12 +14,12 @@ export function middleware(request: NextRequest) {
     // Protect dashboard routes
     if (!isPublicPath && !token) {
         // Redirect unauthenticated users to login page
-        return NextResponse.redirect(new URL("/login", request.url));
+        return NextResponse.redirect(new URL("/admin/login", request.url));
     }
 
     // Redirect authenticated users away from login page
     if (path === "/login" && token) {
-        return NextResponse.redirect(new URL("/", request.url));
+        return NextResponse.redirect(new URL("/admin", request.url));
     }
 
     return NextResponse.next();

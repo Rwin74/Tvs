@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -31,8 +31,19 @@ type ProductFormValues = z.infer<typeof productSchema>
 
 export default function AddProductPage() {
     const [loading, setLoading] = useState(false)
-    const [variants, setVariants] = useState<{ size: string; color: string; stock: number }[]>([])
+    const [variants, setVariants] = useState<{ size: string; color: string; stock: number; price: string }[]>([])
     const [images, setImages] = useState<string[]>([])
+    const [categories, setCategories] = useState<{ id: string; name: string }[]>([])
+
+    useEffect(() => {
+        // Fetch categories dynamically
+        fetch("/admin/api/categories")
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) setCategories(data)
+            })
+            .catch(err => console.error("Kategoriler yüklenemedi", err))
+    }, [])
 
     const form = useForm<ProductFormValues>({
         resolver: zodResolver(productSchema) as any,
@@ -69,7 +80,7 @@ export default function AddProductPage() {
             }
 
             alert("Ürün başarıyla oluşturuldu!")
-            router.push("/admin/products")
+            router.push("/products")
             router.refresh()
         } catch (error: any) {
             console.error(error)
@@ -84,7 +95,7 @@ export default function AddProductPage() {
     }
 
     const addVariant = () => {
-        setVariants([...variants, { size: "M", color: "Beyaz", stock: 10 }])
+        setVariants([...variants, { size: "M", color: "Beyaz", stock: 10, price: "" }])
     }
 
     return (
@@ -92,7 +103,7 @@ export default function AddProductPage() {
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">Yeni Ürün Ekle</h1>
                 <div className="flex gap-2">
-                    <Button variant="outline" type="button" onClick={() => router.push('/admin/products')}>İptal</Button>
+                    <Button variant="outline" type="button" onClick={() => router.push('/products')}>İptal</Button>
                     <Button type="submit" disabled={loading}>
                         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         <Save className="mr-2 h-4 w-4" />
@@ -159,13 +170,9 @@ export default function AddProductPage() {
                                         className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                                     >
                                         <option value="">Kategori Seçin</option>
-                                        <option value="banyo">Banyo</option>
-                                        <option value="yatak-takimi">Yatak Takımı</option>
-                                        <option value="ev-kiyafeti">Ev Giyimi</option>
-                                        <option value="bebek-cocuk">Bebek & Çocuk</option>
-                                        <option value="yasam">Yaşam</option>
-                                        <option value="beach-spa">Beach & Spa</option>
-                                        <option value="diger">Diğer</option>
+                                        {categories.map((c) => (
+                                            <option key={c.id} value={c.id}>{c.name}</option>
+                                        ))}
                                     </select>
                                     {form.formState.errors.categoryId && (
                                         <p className="text-sm text-destructive">{form.formState.errors.categoryId.message}</p>
@@ -215,14 +222,49 @@ export default function AddProductPage() {
                                         <div>Beden</div>
                                         <div>Renk</div>
                                         <div>Stok</div>
+                                        <div>Fiyat Farkı (TL)</div>
                                         <div>İşlem</div>
                                     </div>
                                     {variants.map((v, i) => (
-                                        <div key={i} className="grid grid-cols-4 gap-4 p-4 border-t items-center">
-                                            <Input defaultValue={v.size} className="h-8" />
-                                            <Input defaultValue={v.color} className="h-8" />
-                                            <Input type="number" defaultValue={v.stock} className="h-8" />
-                                            <Button type="button" variant="ghost" size="icon" className="h-8 w-8 text-destructive">
+                                        <div key={i} className="grid grid-cols-5 gap-4 p-4 border-t items-center">
+                                            <Input
+                                                value={v.size}
+                                                onChange={(e) => {
+                                                    const newV = [...variants]; newV[i].size = e.target.value; setVariants(newV)
+                                                }}
+                                                className="h-8"
+                                            />
+                                            <Input
+                                                value={v.color}
+                                                onChange={(e) => {
+                                                    const newV = [...variants]; newV[i].color = e.target.value; setVariants(newV)
+                                                }}
+                                                className="h-8"
+                                            />
+                                            <Input
+                                                type="number"
+                                                value={v.stock}
+                                                onChange={(e) => {
+                                                    const newV = [...variants]; newV[i].stock = parseInt(e.target.value); setVariants(newV)
+                                                }}
+                                                className="h-8"
+                                            />
+                                            <Input
+                                                type="number"
+                                                placeholder="+0 TL"
+                                                value={v.price}
+                                                onChange={(e) => {
+                                                    const newV = [...variants]; newV[i].price = e.target.value; setVariants(newV)
+                                                }}
+                                                className="h-8"
+                                            />
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-8 w-8 text-destructive"
+                                                onClick={() => setVariants(variants.filter((_, idx) => idx !== i))}
+                                            >
                                                 <Trash2 className="h-4 w-4" />
                                             </Button>
                                         </div>

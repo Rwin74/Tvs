@@ -32,7 +32,7 @@ const sidebarItems = [
         submenu: [
             { title: "Ürün Listesi", href: "/products", icon: List },
             { title: "Yeni Ürün Ekle", href: "/products/new", icon: PlusCircle },
-            { title: "Kategoriler", href: "/products/categories", icon: Tags },
+            { title: "Kategoriler", href: "/categories", icon: Tags },
             { title: "Varyantlar", href: "/products/variants", icon: Palette },
         ]
     },

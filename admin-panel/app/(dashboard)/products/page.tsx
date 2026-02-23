@@ -68,7 +68,7 @@ export default async function ProductsPage() {
                                 return (
                                     <TableRow key={product.id}>
                                         <TableCell>
-                                            {product.media && product.media.length > 0 ? (
+                                            {product.media && product.media.length > 0 && product.media[0] ? (
                                                 <div className="h-10 w-10 rounded overflow-hidden">
                                                     <img
                                                         src={product.media[0].filePath}
@@ -106,7 +106,19 @@ export default async function ProductsPage() {
                                                 </Link>
                                                 <form action={async () => {
                                                     "use server"
-                                                    await db.product.delete({ where: { id: product.id } })
+                                                    try {
+                                                        // Manual cascade due to SQLite constraint persistence
+                                                        await db.productVariant.deleteMany({ where: { productId: product.id } })
+                                                        await db.mediaLibrary.deleteMany({ where: { productId: product.id } })
+                                                        await db.seoSetting.deleteMany({ where: { productId: product.id } })
+
+                                                        // Finally delete the product
+                                                        await db.product.delete({ where: { id: product.id } })
+                                                        revalidatePath("/products")
+                                                        revalidatePath("/")
+                                                    } catch (error) {
+                                                        console.error("Delete failed:", error)
+                                                    }
                                                 }}>
                                                     <Button variant="ghost" size="icon" className="text-destructive">
                                                         <Trash className="h-4 w-4" />

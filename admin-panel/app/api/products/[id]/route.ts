@@ -59,6 +59,7 @@ export async function PUT(
         }
 
         const data = body;
+        console.log("=== PUT PAYLOAD RECEIVED ===", JSON.stringify(data, null, 2));
 
         // Transaction to handle updates securely
         // For variants: Delete all and recreate is simplest for this scale
@@ -68,6 +69,7 @@ export async function PUT(
 
         // Clean update
         await db.productVariant.deleteMany({ where: { productId: id } });
+        await db.mediaLibrary.deleteMany({ where: { productId: id } });
 
         const product = await db.product.update({
             where: { id: id },
@@ -106,28 +108,36 @@ export async function PUT(
                     }))
                 },
 
-                // Media - typically we don't delete old media on simple update unless specified
-                // If data.images contains NEW images, we create them. 
-                // If we want to sync exact reference, we need logic. 
-                // For now, let's just ADD new ones if they are sent as objects or URL strings that are NOT in DB? 
-                // Actually, the frontend sends `images` array of URLs.
-                // Simplification: We won't delete existing media here to prevent data loss. 
-                // We will just add new ones if they are passed. 
-                // Better: The frontend logic handles upload separately.
-                // If we want to "Link" new uploaded images:
-                media: {
-                    create: data.newImages?.map((url: string) => ({
-                        fileName: url.split('/').pop() || 'image',
-                        filePath: url,
-                        altText: data.name,
-                        sizeKb: 0
-                    }))
-                }
             },
-            include: { variants: true, media: true }
+            include: { variants: true }
         });
 
-        return NextResponse.json(product);
+        // Rebuild Media explicitly to avoid nested transaction bugs in SQLite
+        const allMedia = [...(data.images || []), ...(data.newImages || [])];
+        if (allMedia.length > 0) {
+            try {
+                console.log("=== SAVING MEDIA EXPERIMENT ===", allMedia);
+                await db.mediaLibrary.createMany({
+                    data: allMedia.map((url: string) => ({
+                        productId: id,
+                        fileName: url.split('/').pop() || 'image',
+                        filePath: url,
+                        altText: data.name || "Product Image",
+                        sizeKb: 0
+                    }))
+                });
+            } catch (mediaErr) {
+                console.error("=== MEDIA CREATE ERROR ===", mediaErr);
+                throw new Error("Failed creating images relation");
+            }
+        }
+
+        const updatedProduct = await db.product.findUnique({
+            where: { id: id },
+            include: { variants: true, media: true, seo: true }
+        });
+
+        return NextResponse.json(updatedProduct);
     } catch (error: any) {
         console.error("Update error:", error);
         return NextResponse.json({ error: error.message }, { status: 500 });
@@ -141,6 +151,9 @@ export async function DELETE(
 ) {
     try {
         const { id } = await context.params;
+        await db.productVariant.deleteMany({ where: { productId: id } });
+        await db.mediaLibrary.deleteMany({ where: { productId: id } });
+        await db.seoSetting.deleteMany({ where: { productId: id } });
         await db.product.delete({
             where: { id: id }
         });

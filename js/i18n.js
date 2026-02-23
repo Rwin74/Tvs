@@ -4,7 +4,7 @@
  * data-i18n attribute ile otomatik çeviri
  */
 const I18n = {
-    currentLang: 'tr',
+    currentLang: 'fr',
     translations: {},
     supportedLangs: ['tr', 'en', 'de', 'fr'],
     langNames: {
@@ -58,9 +58,9 @@ const I18n = {
             this.currentLang = lang;
         } catch (error) {
             console.error('Language load error:', error);
-            // Fallback: Türkçe
-            if (lang !== 'tr') {
-                await this.loadLanguage('tr');
+            // Fallback: Fransızca
+            if (lang !== 'fr') {
+                await this.loadLanguage('fr');
             }
         }
     },
