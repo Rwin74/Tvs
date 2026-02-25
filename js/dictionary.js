@@ -61,7 +61,26 @@ const dictionary = {
   "bebek": { en: "Baby", de: "Baby", fr: "Bébé" },
   "çocuk": { en: "Kids", de: "Kinder", fr: "Enfants" },
   "takım": { en: "Set", de: "Set", fr: "Ensemble" },
-  "yatak": { en: "Bed", de: "Bett", fr: "Lit" }
+  "yatak": { en: "Bed", de: "Bett", fr: "Lit" },
+
+  // === EKLİ TÜRKÇE FORMLAR (takım → takımı gibi) ===
+  "takımı": { en: "Set", de: "Set", fr: "Ensemble" },
+  "seti": { en: "Set", de: "Set", fr: "Ensemble" },
+  "havlusu": { en: "Towel", de: "Handtuch", fr: "Serviette" },
+  "bornozı": { en: "Bathrobe", de: "Bademantel", fr: "Peignoir" },
+  "çarşafı": { en: "Bed Sheet", de: "Bettlaken", fr: "Drap" },
+  "örtüsü": { en: "Cover", de: "Bezug", fr: "Housse" },
+  "kılıfı": { en: "Case", de: "Bezug", fr: "Taie" },
+  "takımları": { en: "Set", de: "Set", fr: "Ensemble" },
+
+  // === İNGİLİZCE KUMAŞ ADLARI (kullanıcı İngilizce girebilir) ===
+  "cotton": { en: "Cotton", de: "Baumwolle", fr: "Coton" },
+  "bamboo": { en: "Bamboo", de: "Bambus", fr: "Bambou" },
+  "linen": { en: "Linen", de: "Leinen", fr: "Lin" },
+  "polyester": { en: "Polyester", de: "Polyester", fr: "Polyester" },
+  "satin": { en: "Satin", de: "Satin", fr: "Satin" },
+  "velvet": { en: "Velvet", de: "Samt", fr: "Velours" },
+  "muslin": { en: "Muslin", de: "Musselin", fr: "Mousseline" },
 };
 
 /**

@@ -1,6 +1,6 @@
 /**
  * TVS Tekstil - Ürün Verileri (Admin Panel Tarafından Oluşturuldu)
- * Tarih: 25.02.2026 15:47:25
+ * Tarih: 25.02.2026 16:11:36
  */
 const categories = [
     {
@@ -32,9 +32,9 @@ const products = [
         "price": 1000,
         "features": [
             "Cotton",
-            "1 Varyant",
-            "Hızlı Kargo",
-            "Yerli Üretim"
+            "1_variants",
+            "fast_shipping",
+            "domestic"
         ],
         "image": "/img/uploads/1772020277727-555185618-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp",
         "images": [
