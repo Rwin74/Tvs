@@ -1,18 +1,19 @@
 /**
  * TVS Tekstil - Ürün Verileri (Admin Panel Tarafından Oluşturuldu)
- * Tarih: 25.02.2026 14:37:57
+ * Tarih: 25.02.2026 14:51:22
  */
 const categories = [
     {
         "id": "ev-tekstil",
+        "name": "Ev tekstili",
         "icon": "📦",
-        "image": ""
+        "image": "/img/uploads/1772020247663-186712405-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp"
     }
 ];
 
 const products = [
     {
-        "id": "8711d093-8f2d-43ee-a408-8ce9dd762213",
+        "id": "7acc7990-513b-4fb4-971d-c1903b3bbbb8",
         "name": "Nevresim takımı",
         "tags": [
             "cotton",
@@ -20,24 +21,24 @@ const products = [
             "takımı",
             "ev-tekstil"
         ],
-        "description": "Tek kişilik",
+        "description": "Çif kişilik",
         "descTags": [
             "cotton",
             "nevresim",
             "takımı"
         ],
-        "descTemplate": "Tek kişilik",
+        "descTemplate": "Çif kişilik",
         "category": "ev-tekstil",
         "price": 1000,
         "features": [
             "Cotton",
-            "2 Varyant",
+            "1 Varyant",
             "Hızlı Kargo",
             "Yerli Üretim"
         ],
-        "image": "/img/uploads/1772019438940-351866324-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp",
+        "image": "/img/uploads/1772020277727-555185618-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp",
         "images": [
-            "/img/uploads/1772019438940-351866324-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp"
+            "/img/uploads/1772020277727-555185618-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp"
         ]
     }
 ];
