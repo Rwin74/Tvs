@@ -88,6 +88,12 @@ export default function AddProductPage() {
             }
 
             alert("Ürün başarıyla oluşturuldu!")
+
+            // Auto-publish to site
+            try {
+                await fetch("/admin/api/publish", { method: "POST" })
+            } catch (_) { /* publish hataları sessiz geçsin */ }
+
             router.push("/products")
             router.refresh()
         } catch (error: any) {

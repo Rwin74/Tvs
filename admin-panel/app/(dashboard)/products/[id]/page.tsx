@@ -127,6 +127,12 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             }
 
             alert("Ürün başarıyla güncellendi!")
+
+            // Auto-publish to site
+            try {
+                await fetch("/admin/api/publish", { method: "POST" })
+            } catch (_) { /* publish hataları sessiz geçsin */ }
+
             router.push("/products")
             router.refresh()
         } catch (error: any) {
