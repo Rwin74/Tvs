@@ -19,7 +19,14 @@ const productSchema = z.object({
     name: z.string().min(2, "Ürün adı en az 2 karakter olmalıdır"),
     slug: z.string(),
     shortDescription: z.string().optional(),
-    gsm: z.union([z.number(), z.string(), z.undefined()]).optional().transform(v => (v === "" || v === undefined) ? undefined : Number(v)),
+    gsm: z.preprocess(
+        (val) => {
+            if (val === null || val === undefined || val === '' || val === false) return undefined;
+            const n = Number(val);
+            return isNaN(n) ? undefined : n;
+        },
+        z.number().optional()
+    ),
     fabricType: z.string().optional(),
     basePrice: z.union([z.number(), z.string()]).transform(val => Number(val)),
     metaTitle: z.string().max(60).optional(),
@@ -194,7 +201,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="grid gap-2">
                                         <Label htmlFor="gsm">GSM</Label>
-                                        <Input id="gsm" type="number" {...form.register("gsm", { valueAsNumber: true })} />
+                                        <Input id="gsm" type="number" {...form.register("gsm")} placeholder="500" />
                                     </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="fabricType">İplik Türü</Label>

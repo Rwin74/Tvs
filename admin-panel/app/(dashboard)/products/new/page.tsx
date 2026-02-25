@@ -19,7 +19,14 @@ const productSchema = z.object({
     name: z.string().min(2, "Ürün adı en az 2 karakter olmalıdır"),
     slug: z.string(),
     shortDescription: z.string().optional(),
-    gsm: z.coerce.number().optional(),
+    gsm: z.preprocess(
+        (val) => {
+            if (val === null || val === undefined || val === '' || val === false) return undefined;
+            const n = Number(val);
+            return isNaN(n) ? undefined : n;
+        },
+        z.number().optional()
+    ),
     fabricType: z.string().optional(),
     basePrice: z.coerce.number().min(0),
     metaTitle: z.string().max(60).optional(),
