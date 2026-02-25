@@ -26,8 +26,8 @@ function updateFile(filePath) {
             </svg>
           </div>
           <div class="header-contact-info">
-            <a href="tel:+905551234567">+90 555 123 4567</a>
-            <a href="mailto:info@tvstekstil.com">info@tvstekstil.com</a>
+            <a href="tel:+905324770375">+90 532 477 0375</a>
+            <a href="mailto:ozkan@tvstekstil.com">ozkan@tvstekstil.com</a>
           </div>
         </div>
       </div>`;
