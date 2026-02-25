@@ -54,8 +54,9 @@ export async function POST(req: NextRequest) {
         const dbCategories = await db.category.findMany({ orderBy: { createdAt: 'asc' } });
         const categories = dbCategories.map(c => ({
             id: c.slug,
+            name: c.name,
             icon: '📦',
-            image: ''
+            image: c.imageUrl || ''
         }));
 
         const fileContent = `/**

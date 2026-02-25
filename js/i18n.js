@@ -198,7 +198,15 @@ const I18n = {
      * Kategori adını çevir
      */
     translateCategory(categoryId) {
-        return this.t(`categories.${categoryId}`) || categoryId;
+        // First try to get name from the categories array (loaded from products.js)
+        if (typeof categories !== 'undefined' && Array.isArray(categories)) {
+            const cat = categories.find(c => c.id === categoryId);
+            if (cat && cat.name) return cat.name;
+        }
+        // Fallback: i18n key
+        const translated = this.t(`categories.${categoryId}`);
+        // If translation key returned equals the full key string, just show the id
+        return (translated === `categories.${categoryId}`) ? categoryId : translated;
     },
 
     /**
