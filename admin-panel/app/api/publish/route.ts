@@ -29,10 +29,10 @@ export async function POST(req: NextRequest) {
             ].flat().filter(Boolean) as string[];
 
             const features = [
-                p.fabricType || "Premium Kumaş",
-                p.variants.length > 0 ? `${p.variants.length} Varyant` : "Tek Ebat",
-                "Hızlı Kargo",
-                "Yerli Üretim"
+                p.fabricType || "premium_fabric",
+                p.variants.length > 0 ? `${p.variants.length}_variants` : "single_size",
+                "fast_shipping",
+                "domestic"
             ];
 
             return {

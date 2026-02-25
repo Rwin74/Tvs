@@ -99,5 +99,12 @@
         "product_line": "{qty}x {name} - {price}",
         "total_line": "Total : {total}",
         "single_product": "Bonjour, je souhaite obtenir des informations sur ce produit : {name}"
+    },
+    "features": {
+        "fast_shipping": "Livraison Rapide",
+        "domestic": "Production Nationale",
+        "premium_fabric": "Tissu Premium",
+        "single_size": "Taille Unique",
+        "variant_unit": "Variante(s)"
     }
 }

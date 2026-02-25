@@ -99,5 +99,12 @@
     "product_line": "{qty}x {name} - {price}",
     "total_line": "Toplam: {total}",
     "single_product": "Merhaba, bu ürün hakkında bilgi almak istiyorum: {name}"
+  },
+  "features": {
+    "fast_shipping": "Hızlı Kargo",
+    "domestic": "Yerli Üretim",
+    "premium_fabric": "Premium Kumaş",
+    "single_size": "Tek Ebat",
+    "variant_unit": "Varyant"
   }
 }

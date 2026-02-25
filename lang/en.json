@@ -99,5 +99,12 @@
         "product_line": "{qty}x {name} - {price}",
         "total_line": "Total: {total}",
         "single_product": "Hello, I would like to get information about this product: {name}"
+    },
+    "features": {
+        "fast_shipping": "Fast Shipping",
+        "domestic": "Domestic Production",
+        "premium_fabric": "Premium Fabric",
+        "single_size": "One Size",
+        "variant_unit": "Variant(s)"
     }
 }

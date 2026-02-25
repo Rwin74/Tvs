@@ -161,6 +161,23 @@
         let currentProduct = null;
         let mainImageIndex = 0;
 
+        // Özellik çevirisi: i18n anahtarlarını çevirir, kullanıcı girişini olduğu gibi gösterir
+        function translateFeature(f) {
+            if (!f) return f;
+            // N_variants pattern: "1_variants", "2_variants"
+            const variantMatch = f.match(/^(\d+)_variants$/);
+            if (variantMatch) {
+                const n = variantMatch[1];
+                const unit = I18n.t('features.variant_unit');
+                return `${n} ${unit !== 'features.variant_unit' ? unit : 'Varyant'}`;
+            }
+            // i18n key araması (fast_shipping → features.fast_shipping)
+            const key = 'features.' + f;
+            const translated = I18n.t(key);
+            // I18n.t key bulamazsa orijinal key'i döndürür, eşit olup olmadığına bak
+            return translated !== key ? translated : f;
+        }
+
         function sendWhatsAppOrder(product) {
             if (!product) return;
             const name = I18n.translateProduct(product);
@@ -205,7 +222,7 @@
           <div class="product-features">
             <h3 data-i18n="product_detail.features">${I18n.t('product_detail.features')}</h3>
             <ul>
-              ${currentProduct.features.map(f => `<li>${f}</li>`).join('')}
+              ${currentProduct.features.map(f => `<li>${translateFeature(f)}</li>`).join('')}
             </ul>
           </div>
           <div class="product-detail-actions">
