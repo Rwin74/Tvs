@@ -242,21 +242,28 @@
       if (!slider || !dotsContainer) return;
       if (typeof categories === 'undefined' || categories.length === 0) return;
 
-      // Slides oluştur (controls div'inden önce ekle)
+      // Mevcut slide'ları temizle (dil değiştiğinde yeniden render için)
+      slider.querySelectorAll('.hero-slide').forEach(el => el.remove());
+      dotsContainer.innerHTML = '';
+
       const controls = slider.querySelector('.hero-controls');
+      const subtitle = (typeof I18n !== 'undefined' ? I18n.t('hero.subtitle') : null) || 'Premium Ev Tekstili';
+      const cta = (typeof I18n !== 'undefined' ? I18n.t('hero.cta') : null) || 'Detay';
+
       categories.forEach((cat, i) => {
         const slide = document.createElement('div');
         slide.className = 'hero-slide';
         slide.dataset.category = cat.id;
-        const catName = cat.name ? cat.name.toUpperCase() : cat.id.toUpperCase();
+        // Kategori adını i18n ile çevir
+        const catName = ((typeof I18n !== 'undefined' ? I18n.translateCategory(cat.id) : null) || cat.name || cat.id).toUpperCase();
         const imgSrc = cat.image || '';
         slide.innerHTML = `
           ${imgSrc ? `<img class="hero-slide-bg" src="${imgSrc}" alt="${catName}" loading="${i === 0 ? 'eager' : 'lazy'}">` : `<div class="hero-slide-bg" style="background:#1a1a2e;"></div>`}
           <div class="hero-slide-content">
             <h2 class="hero-slide-title">${catName}</h2>
-            <p class="hero-slide-subtitle">Premium Ev Tekstili</p>
+            <p class="hero-slide-subtitle">${subtitle}</p>
             <a href="products.html#${cat.id}" class="hero-cta">
-              <span>Detay</span>
+              <span>${cta}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>`;
@@ -267,6 +274,11 @@
       dotsContainer.innerHTML = categories.map((_, i) =>
         `<button class="hero-dot${i === 0 ? ' active' : ''}"></button>`
       ).join('');
+
+      // Slider'ı yeniden başlat
+      if (typeof Slider !== 'undefined' && Slider.initHero) {
+        Slider.initHero();
+      }
     }
 
     // Ana sayfa kategorileri render et (kategori grid)

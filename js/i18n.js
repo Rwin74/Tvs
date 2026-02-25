@@ -94,7 +94,15 @@ const I18n = {
             renderProducts();
         }
 
+        // Hero slider'ı yeniden render et (dil değişince başlık/alt başlık güncellenir)
+        if (typeof renderHeroSlider === 'function') {
+            renderHeroSlider();
+        }
 
+        // Kategori grid'ini yeniden render et
+        if (typeof renderCategories === 'function') {
+            renderCategories();
+        }
 
         // Ürün detay sayfasını güncelle
         if (typeof renderProductDetail === 'function') {
