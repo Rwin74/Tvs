@@ -103,7 +103,7 @@ export default function EditQuotePage({ params }: { params: Promise<{ id: string
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <Button type="button" variant="outline" onClick={() => router.push("/admin/quotes")}>İptal</Button>
+                        <Button type="button" variant="outline" onClick={() => router.push("/quotes")}>İptal</Button>
                         <Button type="submit" disabled={loading}>
                             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             <Save className="mr-2 h-4 w-4" />

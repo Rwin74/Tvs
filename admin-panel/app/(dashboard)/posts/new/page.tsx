@@ -56,7 +56,7 @@ export default function AddPostPage() {
             }
 
             alert("Yazı başarıyla oluşturuldu!")
-            router.push("/admin/posts")
+            router.push("/posts")
             router.refresh()
         } catch (error: any) {
             console.error(error)
@@ -75,7 +75,7 @@ export default function AddPostPage() {
             <form onSubmit={form.handleSubmit(onSubmit, onError)}>
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-4">
-                        <Link href="/admin/posts">
+                        <Link href="/posts">
                             <Button variant="outline" size="icon" type="button">
                                 <ArrowLeft className="h-4 w-4" />
                             </Button>
@@ -86,7 +86,7 @@ export default function AddPostPage() {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <Button type="button" variant="outline" onClick={() => router.push("/admin/posts")}>İptal</Button>
+                        <Button type="button" variant="outline" onClick={() => router.push("/posts")}>İptal</Button>
                         <Button type="submit" disabled={loading}>
                             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             <Save className="mr-2 h-4 w-4" />

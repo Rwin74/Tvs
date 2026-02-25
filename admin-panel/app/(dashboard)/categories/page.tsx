@@ -73,9 +73,14 @@ export default function CategoriesPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Kategoriyi silmek istediğinize emin misiniz?")) return
 
-        // Not yet implemented API route for DELETE. Left for future enhancement
-        // await fetch(`/admin/api/categories/${id}`, { method: 'DELETE' })
-        alert("Silme işlemi şu an aktif değil")
+        try {
+            const res = await fetch(`/admin/api/categories/${id}`, { method: 'DELETE' })
+            const data = await res.json()
+            if (!res.ok) throw new Error(data.error || "Silme başarısız")
+            fetchCategories()
+        } catch (error: any) {
+            alert(error.message)
+        }
     }
 
     return (

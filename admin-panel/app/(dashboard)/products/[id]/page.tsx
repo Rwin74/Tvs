@@ -150,7 +150,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                     <h1 className="text-3xl font-bold tracking-tight">Ürünü Düzenle</h1>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline" type="button" onClick={() => router.push("/admin/products")}>İptal</Button>
+                    <Button variant="outline" type="button" onClick={() => router.push("/products")}>İptal</Button>
                     <Button type="submit" disabled={loading}>
                         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                         <Save className="mr-2 h-4 w-4" />

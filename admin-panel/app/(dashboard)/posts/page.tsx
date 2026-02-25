@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Plus, MoreHorizontal, FileText, Pencil, Trash2 } from "lucide-react"
 import db from "@/lib/db"
+import { revalidatePath } from "next/cache"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -83,6 +84,7 @@ export default async function PostsPage() {
                                             <form action={async () => {
                                                 "use server"
                                                 await db.blogPost.delete({ where: { id: post.id } })
+                                                revalidatePath("/posts")
                                             }}>
                                                 <Button variant="ghost" size="icon" type="submit">
                                                     <Trash2 className="h-4 w-4 text-destructive" />

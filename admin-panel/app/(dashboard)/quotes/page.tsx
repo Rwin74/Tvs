@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { MoreHorizontal, FileText, Mail, Phone, Building, Pencil, Trash2 } from "lucide-react"
 import db from "@/lib/db"
+import { revalidatePath } from "next/cache"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -106,6 +107,7 @@ export default async function QuotesPage() {
                                             <form action={async () => {
                                                 "use server"
                                                 await db.quoteRequest.delete({ where: { id: quote.id } })
+                                                revalidatePath("/quotes")
                                             }}>
                                                 <Button variant="ghost" size="icon" type="submit">
                                                     <Trash2 className="h-4 w-4 text-destructive" />
