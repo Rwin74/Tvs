@@ -1,6 +1,6 @@
 /**
  * TVS Tekstil - Ürün Verileri (Admin Panel Tarafından Oluşturuldu)
- * Tarih: 25.02.2026 15:14:05
+ * Tarih: 25.02.2026 15:26:16
  */
 const categories = [
     {
@@ -38,7 +38,8 @@ const products = [
         ],
         "image": "/img/uploads/1772020277727-555185618-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp",
         "images": [
-            "/img/uploads/1772020277727-555185618-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp"
+            "/img/uploads/1772020277727-555185618-0b11e90e-3aa9-4f9d-98e6-9438f52b9be4.webp",
+            "/img/uploads/1772022041909-273940588-WhatsApp-Image-2026-02-22-at-16.56.15.jpeg"
         ]
     }
 ];
