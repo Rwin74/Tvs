@@ -15,9 +15,10 @@
     },
     "home": {
         "about_title": "TVS TEXTILE",
-        "about_text": "Our company produces high quality home textile products, offering towels, bathrobes, bedding sets, homewear and many more products with world-class production capacity.",
+        "about_text": "Our company produces high-quality home textile products, offering towels, bathrobes, bedding sets, homewear and many more products with world-class production capacity.",
         "detail_btn": "Detail",
-        "categories_title": "Product Categories"
+        "categories_title": "Product Categories",
+        "who_we_are": "WHO WE ARE"
     },
     "products_page": {
         "title": "OUR PRODUCTS",
