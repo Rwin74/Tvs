@@ -6,7 +6,10 @@ export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
 
     // Public paths that do not require authentication
-    const isPublicPath = path === "/login" || path.startsWith("/api/products") || path.startsWith("/api/auth");
+    // Note: these are paths WITHIN the basePath (/admin), so /login = /admin/login
+    const isPublicPath = path === "/admin/login" ||
+        path.startsWith("/admin/api/products") ||
+        path.startsWith("/admin/api/auth");
 
     // Get the token from cookies
     const token = request.cookies.get("admin_token")?.value;
@@ -18,7 +21,7 @@ export function middleware(request: NextRequest) {
     }
 
     // Redirect authenticated users away from login page
-    if (path === "/login" && token) {
+    if (path === "/admin/login" && token) {
         return NextResponse.redirect(new URL("/admin", request.url));
     }
 
