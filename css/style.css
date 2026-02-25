@@ -135,57 +135,67 @@ button {
   line-height: 1.1;
 }
 
-/* Header Contact Additions */
-.header-brand {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2px;
+/* === LOGO ANIMATION === */
+@keyframes logoSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-24px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }
 
-.header-contact {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 2px;
-  margin-left: 2px;
+.site-logo {
+  height: 78px;
+  width: auto;
+  display: block;
+  animation: logoSlideIn 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  transition: transform 0.3s ease;
 }
 
-.header-contact-icon {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--primary);
+.site-logo:hover {
+  transform: scale(1.04);
+}
+
+.logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--white);
   flex-shrink: 0;
 }
 
-.header-contact-icon svg {
-  width: 10px;
-  height: 10px;
-  stroke: var(--white);
-}
-
-.header-contact-info {
+/* === HEADER CONTACT RIGHT === */
+.header-contact-right {
   display: flex;
   flex-direction: column;
-  font-size: 0.65rem;
+  align-items: flex-end;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.header-contact-right a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
   font-weight: 500;
-  line-height: 1.2;
-  color: var(--text-dark);
-}
-
-.header-contact-info a {
-  color: inherit;
-  transition: var(--transition);
-}
-
-.header-contact-info a:hover {
   color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.header-contact-right a:hover {
+  color: var(--accent);
+}
+
+.header-contact-right svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--accent);
+  flex-shrink: 0;
 }
 
 /* Navigation */
@@ -1993,5 +2003,22 @@ textarea.form-control {
 
   .hero-controls {
     bottom: 20px;
+  }
+}
+
+/* === HEADER RESPONSIVE === */
+@media (max-width: 900px) {
+  .header-contact-right {
+    display: none;
+  }
+
+  .site-logo {
+    height: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-logo {
+    height: 52px;
   }
 }
