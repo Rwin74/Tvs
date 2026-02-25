@@ -33,7 +33,6 @@ const sidebarItems = [
             { title: "Ürün Listesi", href: "/products", icon: List },
             { title: "Yeni Ürün Ekle", href: "/products/new", icon: PlusCircle },
             { title: "Kategoriler", href: "/categories", icon: Tags },
-            { title: "Varyantlar", href: "/products/variants", icon: Palette },
         ]
     },
     {
@@ -55,12 +54,7 @@ const sidebarItems = [
             { title: "Gelen Teklifler", href: "/quotes", icon: Briefcase },
         ]
     },
-    {
-        title: "Ayarlar",
-        href: "/settings",
-        icon: Settings,
-        variant: "ghost",
-    },
+
 ]
 
 export function Sidebar() {

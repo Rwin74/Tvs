@@ -1,6 +1,6 @@
 /**
  * TVS Tekstil - Ürün Verileri (Admin Panel Tarafından Oluşturuldu)
- * Tarih: 25.02.2026 15:26:16
+ * Tarih: 25.02.2026 15:37:12
  */
 const categories = [
     {

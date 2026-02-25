@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Save, Loader2, Plus, Trash2, Image as ImageIcon, ArrowLeft } from "lucide-react"
+import { addToast } from "@/components/Toaster"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -92,7 +93,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
 
             } catch (error) {
                 console.error(error)
-                alert("Ürün bilgileri yüklenemedi")
+                addToast("Ürün bilgileri yüklenemedi", "error")
             } finally {
                 setFetching(false)
             }
@@ -126,7 +127,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                 throw new Error(errorData.error || "Güncelleme başarısız")
             }
 
-            alert("Ürün başarıyla güncellendi!")
+            addToast("Ürün başarıyla güncellendi! Site güncelleniyor...", "success")
 
             // Auto-publish to site
             try {
@@ -137,7 +138,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
             router.refresh()
         } catch (error: any) {
             console.error(error)
-            alert("Hata: " + error.message)
+            addToast("Hata: " + error.message, "error")
         } finally {
             setLoading(false)
         }

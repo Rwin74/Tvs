@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Save, Loader2, Plus, Trash2, Image as ImageIcon } from "lucide-react"
+import { addToast } from "@/components/Toaster"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -87,7 +88,7 @@ export default function AddProductPage() {
                 throw new Error(errorData.error || "Bir hata oluştu")
             }
 
-            alert("Ürün başarıyla oluşturuldu!")
+            addToast("Ürün başarıyla oluşturuldu! Site güncelleniyor...", "success")
 
             // Auto-publish to site
             try {
@@ -98,14 +99,14 @@ export default function AddProductPage() {
             router.refresh()
         } catch (error: any) {
             console.error(error)
-            alert("Hata: " + error.message)
+            addToast("Hata: " + error.message, "error")
         } finally {
             setLoading(false)
         }
     }
 
     const onError = (errors: any) => {
-        alert("Lütfen tüm alanları (özellikle gizli sekmelerdeki zorunlu alanları) kontrol edin. Eksik alanlar: " + Object.keys(errors).join(", "))
+        addToast("Lütfen tüm zorunlu alanları kontrol edin. Eksik alanlar: " + Object.keys(errors).join(", "), "error")
     }
 
     const addVariant = () => {
