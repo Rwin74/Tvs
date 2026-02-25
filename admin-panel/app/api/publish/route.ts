@@ -11,26 +11,23 @@ export async function POST(req: NextRequest) {
             include: {
                 variants: true,
                 media: true,
-                seo: true
+                seo: true,
+                category: true
             },
-            orderBy: { createdAt: 'desc' } // Newest first
+            orderBy: { createdAt: 'desc' }
         });
 
         // 2. Transform to products.js format
         const transformedProducts = products.map(p => {
-            // Map first image or default
             const mainImage = p.media.length > 0 ? p.media[0].filePath : "";
             const allImages = p.media.map(m => m.filePath);
 
-            // Tags logic: Combine name words, fabric type, etc.
             const tags = [
                 p.fabricType?.toLowerCase(),
                 p.name.toLowerCase().split(' '),
-                p.categoryId
+                p.category?.slug || p.categoryId
             ].flat().filter(Boolean) as string[];
 
-            // Features - for now hardcoded or needs a field. 
-            // We will just put some generic ones + variant info
             const features = [
                 p.fabricType || "Premium Kumaş",
                 p.variants.length > 0 ? `${p.variants.length} Varyant` : "Tek Ebat",
@@ -39,13 +36,13 @@ export async function POST(req: NextRequest) {
             ];
 
             return {
-                id: p.id, // UUID String
+                id: p.id,
                 name: p.name,
                 tags: tags,
                 description: p.shortDescription || "",
                 descTags: tags.slice(0, 3),
-                descTemplate: p.shortDescription || "", // Use description as template for now
-                category: p.categoryId || "diger",
+                descTemplate: p.shortDescription || "",
+                category: p.category?.slug || p.categoryId || "diger",
                 price: Number(p.basePrice),
                 features: features,
                 image: mainImage,
@@ -53,16 +50,13 @@ export async function POST(req: NextRequest) {
             };
         });
 
-        // 3. Define static content (Categories & Functions)
-        // We copy the existing categories from the file analysis
-        const categories = [
-            { id: 'banyo', icon: '🛁', image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80' },
-            { id: 'yatak-takimi', icon: '🛏️', image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80' },
-            { id: 'ev-kiyafeti', icon: '👘', image: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&q=80' },
-            { id: 'bebek-cocuk', icon: '👶', image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&q=80' },
-            { id: 'yasam', icon: '🏠', image: 'https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=800&q=80' },
-            { id: 'beach-spa', icon: '🏖️', image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80' }
-        ];
+        // 3. Fetch categories from DB
+        const dbCategories = await db.category.findMany({ orderBy: { createdAt: 'asc' } });
+        const categories = dbCategories.map(c => ({
+            id: c.slug,
+            icon: '📦',
+            image: ''
+        }));
 
         const fileContent = `/**
  * TVS Tekstil - Ürün Verileri (Admin Panel Tarafından Oluşturuldu)

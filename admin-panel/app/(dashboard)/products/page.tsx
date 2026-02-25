@@ -21,7 +21,8 @@ export default async function ProductsPage() {
         orderBy: { createdAt: 'desc' },
         include: {
             variants: true,
-            media: true
+            media: true,
+            category: true
         }
     })
 
@@ -86,7 +87,7 @@ export default async function ProductsPage() {
                                             {product.name}
                                             <div className="text-xs text-muted-foreground">{product.slug}</div>
                                         </TableCell>
-                                        <TableCell>{product.categoryId || "-"}</TableCell>
+                                        <TableCell>{product.category?.name || product.categoryId || "-"}</TableCell>
                                         <TableCell>
                                             <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${status === 'Aktif' ? 'bg-green-100 text-green-800' :
                                                 status === 'Tükendi' ? 'bg-red-100 text-red-800' :
