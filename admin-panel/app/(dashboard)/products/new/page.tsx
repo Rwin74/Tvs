@@ -33,6 +33,7 @@ export default function AddProductPage() {
     const [loading, setLoading] = useState(false)
     const [variants, setVariants] = useState<{ size: string; color: string; stock: number; price: string }[]>([])
     const [images, setImages] = useState<string[]>([])
+    const [mainImageIndex, setMainImageIndex] = useState(0)
     const [categories, setCategories] = useState<{ id: string; name: string }[]>([])
 
     useEffect(() => {
@@ -363,19 +364,48 @@ export default function AddProductPage() {
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-4 gap-4 mt-4">
+                                    {images.length > 0 && (
+                                        <p className="text-xs text-muted-foreground mt-2">⭐ Yıldıza tıklayarak ana fotoğrafı seçin (ilk sırada gösterilecek)</p>
+                                    )}
+                                    <div className="grid grid-cols-4 gap-4 mt-2">
                                         {images.map((url, i) => (
-                                            <div key={i} className="relative aspect-square border rounded-md overflow-hidden group">
+                                            <div key={i} className={`relative aspect-square border-2 rounded-md overflow-hidden group ${i === mainImageIndex ? 'border-yellow-400' : 'border-border'}`}>
                                                 <img src={url} alt="Uploaded" className="object-cover w-full h-full" />
-                                                <Button
-                                                    type="button"
-                                                    variant="destructive"
-                                                    size="icon"
-                                                    className="absolute top-1 right-1 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                                                    onClick={() => setImages(prev => prev.filter((_, idx) => idx !== i))}
-                                                >
-                                                    <Trash2 className="h-3 w-3" />
-                                                </Button>
+                                                {i === mainImageIndex && (
+                                                    <div className="absolute top-1 left-1 bg-yellow-400 text-yellow-900 text-xs font-bold px-1 rounded">ANA</div>
+                                                )}
+                                                <div className="absolute inset-0 flex items-center justify-center gap-1 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <Button
+                                                        type="button"
+                                                        size="icon"
+                                                        className="h-7 w-7 bg-yellow-400 hover:bg-yellow-300 text-yellow-900"
+                                                        onClick={() => {
+                                                            setMainImageIndex(i)
+                                                            // Move main image to front
+                                                            setImages(prev => {
+                                                                const newArr = [...prev]
+                                                                const [main] = newArr.splice(i, 1)
+                                                                return [main, ...newArr]
+                                                            })
+                                                            setMainImageIndex(0)
+                                                        }}
+                                                        title="Ana fotoğraf yap"
+                                                    >
+                                                        ⭐
+                                                    </Button>
+                                                    <Button
+                                                        type="button"
+                                                        variant="destructive"
+                                                        size="icon"
+                                                        className="h-7 w-7"
+                                                        onClick={() => {
+                                                            setImages(prev => prev.filter((_, idx) => idx !== i))
+                                                            if (mainImageIndex >= i) setMainImageIndex(Math.max(0, mainImageIndex - 1))
+                                                        }}
+                                                    >
+                                                        <Trash2 className="h-3 w-3" />
+                                                    </Button>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
