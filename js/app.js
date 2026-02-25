@@ -14,6 +14,9 @@ const App = {
             await fetchProducts();
         }
 
+        // Nav kategorilerini dinamik yükle
+        this.renderNavCategories();
+
         // Kategori ürünlerini render et (eğer kategori sayfasındaysa)
         if (typeof renderCategoryPageProducts === 'function') {
             renderCategoryPageProducts();
@@ -166,6 +169,35 @@ const App = {
                 form.reset();
             }
         });
+    },
+
+    /**
+     * Nav ve footer kategori linklerini products.js'deki categories dizisinden doldur
+     */
+    renderNavCategories() {
+        if (typeof categories === 'undefined' || !categories.length) return;
+
+        // Base path: kategori/ altındaki sayfalar için '../' prefix gerekli
+        const navContainer = document.getElementById('nav-categories-list');
+        const footerContainer = document.getElementById('footer-categories-list');
+        const base = (navContainer || footerContainer)?.getAttribute('data-base') || '';
+
+        const navLinks = categories.map(cat => {
+            const label = (typeof I18n !== 'undefined' && I18n.translateCategory)
+                ? I18n.translateCategory(cat.id)
+                : cat.id;
+            return `<a href="${base}products.html#${cat.id}" class="nav-dropdown-item">${label}</a>`;
+        }).join('\n');
+
+        const footerLinks = categories.map(cat => {
+            const label = (typeof I18n !== 'undefined' && I18n.translateCategory)
+                ? I18n.translateCategory(cat.id)
+                : cat.id;
+            return `<a href="${base}products.html#${cat.id}">${label}</a>`;
+        }).join('\n');
+
+        if (navContainer) navContainer.innerHTML = navLinks;
+        if (footerContainer) footerContainer.innerHTML = footerLinks;
     }
 };
 
