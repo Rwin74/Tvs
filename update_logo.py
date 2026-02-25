@@ -3,9 +3,10 @@ import os, re
 root = r'c:\Users\Atakan\Desktop\tekstil tvs'
 skip_dirs = {'node_modules', '.git', 'admin-panel'}
 
-# Pattern: existing inline SVG emoji favicon + any other icon links
-icon_pat = re.compile(
-    r'<link rel="icon"[^>]*>(\s*<link rel="apple-touch-icon"[^>]*>)?',
+# Pattern: match existing icon/apple-touch-icon/shortcut links
+# Replace with SVG favicon (white circle background)
+icon_block_pat = re.compile(
+    r'<link rel="icon"[^>]*>\s*<link rel="apple-touch-icon"[^>]*>\s*<link rel="shortcut icon"[^>]*>',
     re.DOTALL
 )
 
@@ -19,26 +20,25 @@ for dirpath, dirnames, filenames in os.walk(root):
         # Relative path to img folder
         rel = os.path.relpath(root, dirpath)
         if rel == '.':
-            img_src = 'img/tvslogo_yeni.webp'
+            svg_src = 'img/favicon.svg'
+            webp_src = 'img/tvslogo_yeni.webp'
         else:
-            img_src = rel.replace('\\', '/') + '/img/tvslogo_yeni.webp'
+            pref = rel.replace('\\', '/')
+            svg_src = pref + '/img/favicon.svg'
+            webp_src = pref + '/img/tvslogo_yeni.webp'
 
-        new_favicon = (
-            '<link rel="icon" href="{src}" type="image/webp" sizes="192x192">\n'
-            '  <link rel="apple-touch-icon" href="{src}">\n'
-            '  <link rel="shortcut icon" href="{src}">'
-        ).format(src=img_src)
+        new_icons = (
+            '<link rel="icon" href="{svg}" type="image/svg+xml">\n'
+            '  <link rel="icon" href="{webp}" type="image/webp" sizes="192x192">\n'
+            '  <link rel="apple-touch-icon" href="{webp}">\n'
+            '  <link rel="shortcut icon" href="{svg}">'
+        ).format(svg=svg_src, webp=webp_src)
 
         try:
             with open(fp, 'r', encoding='utf-8') as f:
                 c = f.read()
 
-            if 'rel="icon"' in c:
-                # Replace existing favicon
-                nc = icon_pat.sub(new_favicon, c)
-            else:
-                # No favicon yet - insert before </head>
-                nc = c.replace('</head>', '  ' + new_favicon + '\n</head>', 1)
+            nc = icon_block_pat.sub(new_icons, c)
 
             if nc != c:
                 with open(fp, 'w', encoding='utf-8') as f:
