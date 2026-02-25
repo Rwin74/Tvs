@@ -1,6 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 
+// PUT: Update category
+export async function PUT(
+    req: NextRequest,
+    context: { params: Promise<{ id: string }> }
+) {
+    try {
+        const { id } = await context.params;
+        const body = await req.json();
+
+        const category = await db.category.update({
+            where: { id },
+            data: {
+                name: body.name,
+                slug: body.slug,
+                description: body.description,
+                imageUrl: body.imageUrl,
+                iconClass: body.iconClass,
+            },
+        });
+
+        return NextResponse.json(category);
+    } catch (error: any) {
+        console.error("Failed to update category:", error);
+        return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
+    }
+}
+
 // DELETE: Remove category
 export async function DELETE(
     req: NextRequest,
@@ -34,6 +61,7 @@ export async function DELETE(
         );
     }
 }
+
 
 // GET: Single category
 export async function GET(

@@ -1,6 +1,6 @@
 /**
  * TVS Tekstil - Blog Verileri (Admin Panel Tarafından Oluşturuldu)
- * Tarih: 25.02.2026 15:37:12
+ * Tarih: 25.02.2026 15:47:25
  */
 const blogPosts = [
     {

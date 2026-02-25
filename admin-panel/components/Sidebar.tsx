@@ -7,13 +7,11 @@ import {
     LayoutDashboard,
     Package,
     FileText,
-    Users,
-    Settings,
     Briefcase,
     PlusCircle,
     List,
     Tags,
-    Palette,
+    MonitorPlay,
     Image as ImageIcon
 } from "lucide-react"
 
@@ -43,6 +41,7 @@ const sidebarItems = [
         submenu: [
             { title: "Blog Yazıları", href: "/posts", icon: FileText },
             { title: "Yeni Yazı Ekle", href: "/posts/new", icon: PlusCircle },
+            { title: "Slider Yönetimi", href: "/slider", icon: MonitorPlay },
         ]
     },
     {
