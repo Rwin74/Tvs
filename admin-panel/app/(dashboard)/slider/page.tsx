@@ -23,7 +23,7 @@ export default function SliderPage() {
     const fetchSlides = async () => {
         setLoading(true)
         try {
-            const res = await fetch("/admin/api/categories")
+            const res = await fetch("/api/categories")
             const data = await res.json()
             if (Array.isArray(data)) {
                 setSlides(data.map((c: any) => ({
@@ -47,7 +47,7 @@ export default function SliderPage() {
         fd.append("file", file)
         setSaving(id)
         try {
-            const res = await fetch("/admin/api/upload", { method: "POST", body: fd })
+            const res = await fetch("/api/upload", { method: "POST", body: fd })
             const data = await res.json()
             const url = data.url || data.path
             if (!url) throw new Error("URL alınamadı")
@@ -71,7 +71,7 @@ export default function SliderPage() {
                 imageUrl: imageUrl ?? slide.image,
             }
 
-            const res = await fetch(`/admin/api/categories/${id}`, {
+            const res = await fetch(`/api/categories/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -89,7 +89,7 @@ export default function SliderPage() {
             ))
 
             // Auto-publish
-            await fetch("/admin/api/publish", { method: "POST" }).catch(() => { })
+            await fetch("/api/publish", { method: "POST" }).catch(() => { })
 
             addToast("Slide güncellendi ve site yenilendi ✓", "success")
         } catch (e: any) {

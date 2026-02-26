@@ -61,7 +61,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await fetch(`/admin/api/products/${id}`)
+                const res = await fetch(`/api/products/${id}`)
                 if (!res.ok) throw new Error("Ürün bulunamadı")
                 const product = await res.json()
 
@@ -116,7 +116,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
 
             console.log("PAYLOAD_TO_SEND:", JSON.stringify(payload, null, 2))
 
-            const response = await fetch(`/admin/api/products/${id}`, {
+            const response = await fetch(`/api/products/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -131,7 +131,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
 
             // Auto-publish to site
             try {
-                await fetch("/admin/api/publish", { method: "POST" })
+                await fetch("/api/publish", { method: "POST" })
             } catch (_) { /* publish hataları sessiz geçsin */ }
 
             router.push("/products")
@@ -321,7 +321,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                                                     const fd = new FormData()
                                                     fd.append("file", file)
 
-                                                    const res = await fetch("/admin/api/upload", { method: "POST", body: fd })
+                                                    const res = await fetch("/api/upload", { method: "POST", body: fd })
                                                     if (res.ok) {
                                                         const data = await res.json()
                                                         setNewImages(prev => [...prev, data.url])

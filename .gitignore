@@ -1,3 +1,9 @@
 node_modules/
+admin-panel/node_modules/
 .env
+admin-panel/.env
+admin-panel/.next/
+admin-panel/*.log
+admin-panel/tsconfig.tsbuildinfo
+admin-panel/prisma/dev.db
 .DS_Store

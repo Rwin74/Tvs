@@ -44,7 +44,7 @@ export default function AddPostPage() {
     const onSubmit = async (data: PostFormValues) => {
         setLoading(true)
         try {
-            const response = await fetch("/admin/api/posts", {
+            const response = await fetch("/api/posts", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)

@@ -46,7 +46,7 @@ export default function AddProductPage() {
 
     useEffect(() => {
         // Fetch categories dynamically
-        fetch("/admin/api/categories")
+        fetch("/api/categories")
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) setCategories(data)
@@ -77,7 +77,7 @@ export default function AddProductPage() {
                 images: images
             }
 
-            const response = await fetch("/admin/api/products", {
+            const response = await fetch("/api/products", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -92,7 +92,7 @@ export default function AddProductPage() {
 
             // Auto-publish to site
             try {
-                await fetch("/admin/api/publish", { method: "POST" })
+                await fetch("/api/publish", { method: "POST" })
             } catch (_) { /* publish hataları sessiz geçsin */ }
 
             router.push("/products")
@@ -358,7 +358,7 @@ export default function AddProductPage() {
                                                     const fd = new FormData()
                                                     fd.append("file", file)
 
-                                                    const res = await fetch("/admin/api/upload", {
+                                                    const res = await fetch("/api/upload", {
                                                         method: "POST",
                                                         body: fd
                                                     })

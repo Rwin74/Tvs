@@ -1,18 +1,24 @@
 {
     "name": "tekstil-tvs",
     "version": "1.0.0",
-    "description": "",
+    "description": "Tekstil TVS - Ana Site & Admin Panel",
     "main": "server.js",
     "scripts": {
         "dev": "concurrently \"npm run serve-static\" \"npm run dev-admin\"",
         "serve-static": "node server.js",
         "dev-admin": "cd admin-panel && npm run dev-port",
+        "start": "node server.js",
+        "build": "cd admin-panel && npm run build",
+        "install-all": "npm install && cd admin-panel && npm install",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
         "concurrently": "^8.2.2",
         "express": "^4.18.2",
         "http-proxy-middleware": "^2.0.6"
+    },
+    "engines": {
+        "node": ">=18.0.0"
     },
     "author": "",
     "license": "ISC"

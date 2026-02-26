@@ -46,7 +46,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const res = await fetch(`/admin/api/posts/${id}`)
+                const res = await fetch(`/api/posts/${id}`)
                 if (!res.ok) throw new Error("Yazı bulunamadı")
                 const post = await res.json()
 
@@ -71,7 +71,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     const onSubmit = async (data: PostFormValues) => {
         setLoading(true)
         try {
-            const response = await fetch(`/admin/api/posts/${id}`, {
+            const response = await fetch(`/api/posts/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)

@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
-    "dev-port": "next dev -p 3001",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "node server.js",
+    "postinstall": "prisma generate",
     "lint": "eslint"
   },
   "dependencies": {

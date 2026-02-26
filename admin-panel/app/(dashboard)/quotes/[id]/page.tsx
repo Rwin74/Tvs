@@ -38,7 +38,7 @@ export default function EditQuotePage({ params }: { params: Promise<{ id: string
     useEffect(() => {
         const fetchQuote = async () => {
             try {
-                const res = await fetch(`/admin/api/quotes/${id}`)
+                const res = await fetch(`/api/quotes/${id}`)
                 if (!res.ok) throw new Error("Teklif bulunamadı")
                 const quote = await res.json()
 
@@ -61,7 +61,7 @@ export default function EditQuotePage({ params }: { params: Promise<{ id: string
     const onSubmit = async (data: QuoteFormValues) => {
         setLoading(true)
         try {
-            const response = await fetch(`/admin/api/quotes/${id}`, {
+            const response = await fetch(`/api/quotes/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
@@ -73,7 +73,7 @@ export default function EditQuotePage({ params }: { params: Promise<{ id: string
             }
 
             alert("Teklif başarıyla güncellendi!")
-            router.push("/admin/quotes")
+            router.push("/quotes")
             router.refresh()
         } catch (error: any) {
             console.error(error)

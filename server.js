@@ -6,11 +6,23 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Admin paneli için proxy (Next.js uygulaması 3001 portunda çalışacak)
+// next.config.mjs'de basePath: '/admin' tanımlı — Next.js /admin prefix'ini zaten bekliyor
 app.use(
     '/admin',
     createProxyMiddleware({
         target: 'http://localhost:3001',
         changeOrigin: true,
+        ws: true, // WebSocket desteği (Next.js HMR için)
+        on: {
+            error: (err, req, res) => {
+                console.error('Admin proxy hatası:', err.message);
+                res.status(502).send(`
+                    <h2>Admin Paneli Bağlanamadı</h2>
+                    <p>Admin paneli çalışmıyor olabilir. Lütfen <code>npm run dev</code> komutunu çalıştırın.</p>
+                    <p><small>Hata: ${err.message}</small></p>
+                `);
+            }
+        }
     })
 );
 

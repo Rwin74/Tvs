@@ -36,7 +36,7 @@ export default function CategoriesPage() {
     const fetchCategories = async () => {
         setIsFetching(true)
         try {
-            const res = await fetch("/admin/api/categories")
+            const res = await fetch("/api/categories")
             if (res.ok) {
                 const data = await res.json()
                 setCategories(data)
@@ -60,7 +60,7 @@ export default function CategoriesPage() {
         try {
             const formData = new FormData()
             formData.append("file", file)
-            const res = await fetch("/admin/api/upload", { method: "POST", body: formData })
+            const res = await fetch("/api/upload", { method: "POST", body: formData })
             if (!res.ok) throw new Error("Yükleme başarısız")
             const data = await res.json()
             const url = data.url || data.path || data.filePath
@@ -76,7 +76,7 @@ export default function CategoriesPage() {
     const onSubmit = async (data: CategoryFormValues) => {
         setLoading(true)
         try {
-            const res = await fetch("/admin/api/categories", {
+            const res = await fetch("/api/categories", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)
@@ -99,7 +99,7 @@ export default function CategoriesPage() {
         if (!confirm("Kategoriyi silmek istediğinize emin misiniz?")) return
 
         try {
-            const res = await fetch(`/admin/api/categories/${id}`, { method: 'DELETE' })
+            const res = await fetch(`/api/categories/${id}`, { method: 'DELETE' })
             const data = await res.json()
             if (!res.ok) throw new Error(data.error || "Silme başarısız")
             fetchCategories()

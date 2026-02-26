@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [statsLoading, setStatsLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/admin/api/stats')
+    fetch('/api/stats')
       .then(res => res.json())
       .then(data => setStats(data))
       .catch(() => { })
@@ -22,7 +22,7 @@ export default function Dashboard() {
   const handlePublish = async () => {
     setPublishing(true)
     try {
-      const res = await fetch('/admin/api/publish', { method: 'POST' })
+      const res = await fetch('/api/publish', { method: 'POST' })
       if (!res.ok) throw new Error('Yayınlama hatası')
       const data = await res.json()
       alert(`Site başarıyla güncellendi! ${data.count} ürün yayınlandı.`)
@@ -153,7 +153,7 @@ function RecentProducts() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/admin/api/products')
+    fetch('/api/products')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setProducts(data.slice(0, 5))
